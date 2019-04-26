@@ -1,0 +1,98 @@
+html{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.dict-card{
+  margin: 20px 0;
+  .dict-body{
+    margin: 20px 10px;
+  }
+  .dict-setting{
+    >label{
+      margin: 20px 10px;
+    }
+  }
+  .dict-type, .dict-value{
+    padding: 0 10px;
+    margin: 20px 0;
+    >span{
+      margin-right: 20px;
+    }
+  }
+}
+.card-box{
+  margin: 20px 0;
+  .card-item{
+    margin: 10px 0;
+  }
+}
+.des{
+  text-align: left;
+  .component-name{
+    margin-bottom: 50px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cccccc;
+    .name-big{
+      font-size: 50px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+    .name-use{
+      font-size: 20px;
+      margin-right: 20px;
+      &:before{
+        content: '[ ';
+      }
+      &:after{
+        content: ' ]';
+      }
+    }
+    .name-link{
+      float: right;
+      display: block;
+      line-height: 50px;
+      i{
+        font-size: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+  .component-attributes{
+    font-size: 25px;
+    margin: 20px 0;
+    padding-bottom: 10px;
+    display: inline-block;
+    border-bottom: 3px double #ccc;
+    span{
+      &:nth-child(2) {
+        font-size: 15px;
+        margin-left: 10px;
+        &:before{
+          content: '[ ';
+        }
+        &:after{
+          content: ' ]';
+        }
+      }
+    }
+  }
+  .des-item{
+    margin: 20px 0;
+    height: 40px;
+    font-size: 15px;
+    line-height: 40px;
+  }
+  button{
+    i{
+      margin-right: 5px;
+    }
+  }
+}
