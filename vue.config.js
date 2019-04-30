@@ -2,8 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
-const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 function resolve (dir) {
@@ -20,12 +18,6 @@ module.exports = {
       less: {
         javascriptEnabled: true
       },
-      postcss: styles.getPostCssConfig({
-        themeImporter: {
-          themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
-        },
-        minify: true
-      })
     }
   },
   configureWebpack: config => {
@@ -34,12 +26,6 @@ module.exports = {
       new webpack.ProvidePlugin({
         jQuery: 'jquery',
         $: 'jquery'
-      })
-    );
-    plugins.push(
-      new CKEditorWebpackPlugin( {
-        // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
-        language: 'en'
       })
     );
     if (IS_PROD) {

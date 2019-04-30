@@ -82,6 +82,7 @@
     }
     .content{
       background: #f0f2f5;
+      overflow: hidden;
       .header{
         background-color: #ffffff;
         position: relative;

@@ -3,6 +3,8 @@
   box-shadow: 0 0 6px #cccccc;
   border: 1px solid #ccc;
   background: #fff;
+  display: flex;
+  flex-direction: column;
   p.is-empty:first-child::before {
     content: attr(data-empty-text);
     float: left;
@@ -19,6 +21,8 @@
     vertical-align: middle;
   }
   &__content {
+    flex: 1;
+    display: flex;
 
     word-wrap: break-word;
 
@@ -141,4 +145,12 @@
   .table__tools{
     display: inline-block;
   }
+}
+.editor-fullscreen{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
 }

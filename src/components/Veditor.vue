@@ -1,6 +1,6 @@
 <template>
-  <div class="editor">
-    <editor-menu-bubble class="menububble" :editor="editor" @hide="hideLinkMenu">
+  <div class="editor" :class="{'editor-fullscreen': isFullScreen}">
+    <editor-menu-bubble :editor="editor" @hide="hideLinkMenu">
       <div
         slot-scope="{ commands, isActive, getMarkAttrs, menu }"
         class="menububble"
@@ -29,6 +29,104 @@
             </button>
           </el-tooltip>
         </template>
+        <div
+          v-if="isActive.table()"
+          class="editor__line"
+        >
+        </div>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="删除表格">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.deleteTable"
+          >
+            <a-icon type="close"/>
+            <span>删除表</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之前插入一列">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.addColumnBefore"
+          >
+            <a-icon type="insertrowleft"/>
+            <span>前插列</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之后插入一列">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.addColumnAfter"
+          >
+            <a-icon type="insertrowright"/>
+            <span>后插列</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="删除当前列">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.deleteColumn"
+          >
+            <a-icon type="deletecolumn"/>
+            <span>删除列</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之前插入一行">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.addRowBefore"
+          >
+            <a-icon type="insertrowabove"/>
+            <span>前插行</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之后插入一行">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.addRowAfter"
+          >
+            <a-icon type="insertrowbelow"/>
+            <span>后插行</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="删除当前行">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.deleteRow"
+          >
+            <a-icon type="deleterow"/>
+            <span>删除行</span>
+          </button>
+        </el-tooltip>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="合并单元格">
+          <button
+            v-if="isActive.table()"
+            class="menubar__button"
+            @click="commands.toggleCellMerge"
+          >
+            <a-icon type="merge-cells"/>
+            <span>合并</span>
+          </button>
+        </el-tooltip>
+      </div>
+    </editor-menu-bubble>
+    <editor-menu-bar :editor="editor">
+      <div class="menubar" slot-scope="{ commands, isActive }">
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" :content="isFullScreen ? '退出全屏' : '全屏'">
+          <button
+            class="menubar__button"
+            @click="isFullScreen = !isFullScreen"
+          >
+            <a-icon :type="isFullScreen ? 'fullscreen-exit' : 'fullscreen'"/>
+            <span>{{isFullScreen ? '退出全屏' : '全屏模式'}}</span>
+          </button>
+        </el-tooltip>
         <div class="editor__line"></div>
         <el-tooltip :open-delay="200" :enterable="false" placement="top" content="插入图片">
           <button
@@ -172,101 +270,6 @@
             <span>分割线</span>
           </button>
         </el-tooltip>
-
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="添加表格">
-          <button
-            class="menubar__button"
-            @click="commands.createTable({rowsCount: 3, colsCount: 4, withHeaderRow: false })"
-          >
-            <a-icon type="table"/>
-            <span>表格</span>
-          </button>
-        </el-tooltip>
-        <div
-          v-if="isActive.table()"
-          class="editor__line"
-        >
-        </div>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="删除表格">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.deleteTable"
-          >
-            <a-icon type="close"/>
-            <span>删除表</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之前插入一列">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.addColumnBefore"
-          >
-            <a-icon type="insertrowleft"/>
-            <span>前插列</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之后插入一列">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.addColumnAfter"
-          >
-            <a-icon type="insertrowright"/>
-            <span>后插列</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="删除当前列">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.deleteColumn"
-          >
-            <a-icon type="deletecolumn"/>
-            <span>删除列</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之前插入一行">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.addRowBefore"
-          >
-            <a-icon type="insertrowabove"/>
-            <span>前插行</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="在之后插入一行">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.addRowAfter"
-          >
-            <a-icon type="insertrowbelow"/>
-            <span>后插行</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="删除当前行">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.deleteRow"
-          >
-            <a-icon type="deleterow"/>
-            <span>删除行</span>
-          </button>
-        </el-tooltip>
-        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="合并单元格">
-          <button
-            v-if="isActive.table()"
-            class="menubar__button"
-            @click="commands.toggleCellMerge"
-          >
-            <a-icon type="merge-cells"/>
-            <span>合并</span>
-          </button>
-        </el-tooltip>
         <div class="editor__line"></div>
         <el-tooltip :open-delay="200" :enterable="false" placement="top" content="后退">
           <button
@@ -286,8 +289,18 @@
             <span>前进</span>
           </button>
         </el-tooltip>
+        <div class="editor__line"></div>
+        <el-tooltip :open-delay="200" :enterable="false" placement="top" content="添加表格">
+          <button
+            class="menubar__button"
+            @click="commands.createTable({rowsCount: 3, colsCount: 4, withHeaderRow: false })"
+          >
+            <a-icon type="table"/>
+            <span>表格</span>
+          </button>
+        </el-tooltip>
       </div>
-    </editor-menu-bubble>
+    </editor-menu-bar>
     <editor-content class="editor__content" :editor="editor"/>
   </div>
 </template>
@@ -295,7 +308,7 @@
 <script>
   import javascript from 'highlight.js/lib/languages/javascript'
   import css from 'highlight.js/lib/languages/css'
-  import {Editor, EditorContent, EditorMenuBubble} from 'tiptap';
+  import {Editor, EditorContent, EditorMenuBubble, EditorMenuBar} from 'tiptap';
   import '../assets/css/main.less';
   import {
     Blockquote,
@@ -327,7 +340,8 @@
     name: "Veditor",
     components: {
       EditorContent,
-      EditorMenuBubble
+      EditorMenuBubble,
+      EditorMenuBar
     },
     props:{
       initContent: {
@@ -339,6 +353,7 @@
     },
     data() {
       return {
+        isFullScreen: false,
         editor: new Editor({
           extensions: [
             new Blockquote(),

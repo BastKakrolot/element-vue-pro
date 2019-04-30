@@ -6,8 +6,6 @@ import EChart from './components/EChart';
 import Dict from './components/Dict';
 import VueClipboard from 'vue-clipboard2';
 import 'codemirror/lib/codemirror.css';
-import CKEditor from '@ckeditor/ckeditor5-vue';
-Vue.use( CKEditor );
 // fade/zoom 等
 import 'element-ui/lib/theme-chalk/base.css';
 // collapse 展开折叠
