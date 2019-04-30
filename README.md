@@ -4,6 +4,8 @@
 ```
 npm install
 ```
+## Project demo
+See [demo](http://bastkakrolot.club).
 
 ### Compiles and hot-reloads for development
 ```
